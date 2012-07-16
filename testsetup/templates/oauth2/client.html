@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ client.name }}{% endblock %}
+
+{% block content %}
+
+<h2>{{ client.name }}</h2>
+
+{% if error_description %}
+<div class="error_container">
+	<p>{{ error_description }}</p>
+</div>
+{% endif %}
+
+<div class="content_container">
+	<p>Click below to permanantly store your authorization token. <br />
+	You will not need to view this page again. </p>	
+	<form method="post" action="/oauth2/token" class="authenticate">
+		<input type="hidden" name="grant_type" value="authorization_code" />
+		<input type="hidden" name="code"value="{{ code.0.key }}" />
+		<input type="hidden" name="redirect_uri" value="{{ code.0.redirect_uri }}" />
+		<input type="hidden" name="client_id" value="{{ code.0.client.key }}" />
+		<input type="submit" value="Submit"/>
+	</form>
+
+	
+
+	<script type="text/javascript">
+                $(document).ready(function(){
+                        $('form.authenticate').submit(function(e){
+                                e.preventDefault();
+                                var values = {};
+                                $.each($(this).serializeArray(), function(i, field) {
+                                    values[field.name] = field.value;
+                                });
+                                $.ajax({
+                                        url: this.action,
+                                        data: values,
+                                        dataType: "jsonp",
+                                        beforeSend: function(xhr){
+                                            xhr.setRequestHeader("Authorization", "{{basic_auth}}")
+                                        },
+                                        success: function(data) {
+							window.location.reload();}
+                                });
+                        });
+                });
+        </script>
+
+</div>
+
+{% endblock %}

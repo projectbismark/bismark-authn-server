@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Account Profile{% endblock %}
+
+{% block content %}
+
+        <h2>{{user}}'s profile</h2></br>
+
+        <div class="content_container">
+                <label>ISP: {{router.isp}}</label></br>
+                <label>Location: {{router.location}}</label></br>
+                <label>Service Type: {{router.service_type}}</label></br>
+                <label>Service Plan: {{router.service_plan}}</label></br>
+                <label>Upload Rate: {{router.urate}}</label></br>
+                <label>Download Rate: {{router.drate}}</label></br>
+        </div>
+	</br>	
+	<a href="http://127.0.0.1:8000/oauth2/authorize?redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Fclient%2F&response_type=code">Click here if your registration token stopped working</a>
+
+{% endblock %}
+

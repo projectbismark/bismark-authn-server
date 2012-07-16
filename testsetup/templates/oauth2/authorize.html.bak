@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}Authorize "{{ client.name }}"{% endblock %}
+
+{% block content %}
+
+	<h2>Authorization</h2>
+
+	<div class="content_container">
+		<p>Please enter your current Default Gateway. <br /> 
+		Then click below to finalize the authorization process. </p>
+	</div>
+
+	<div class="form_container">
+		<form name="input" action="{{ form_action }}" method="POST">{% csrf_token %}
+			Default Gateway: <input type="text" name="gateway" /> (Defaults to 192.168.142.1) <br />
+			<input type="submit" value="Click to Continue" />
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('form.uniForm').uniform();
+		});
+	</script>
+
+{% endblock %}

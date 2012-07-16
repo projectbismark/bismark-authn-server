@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}Account Registration{% endblock %}
+
+{% block content %}
+
+        <h2>Account Registration</h2>
+
+        <div class="content_container">
+                <p>The following information will be stored and used to accurately measure your usage.</p>
+		<form name="input" action="." method="POST">{% csrf_token %}
+			<p>ISP:</p> <input type="text" name="isp" /><br />
+			<p>Service Type:</p> <select id="input_type" name="service_type">
+				<option selected></option>
+				<option>DSL</option>
+				<option>Fiber</option>
+				<option>Cable</option>
+				<option>Wireless - Cellular</option>
+				<option>Wireless - WiMAX</option>
+				<option>Wireless - 802.11</option>
+				<option>Other</option>
+			</select><br />
+			<p>Service Plan:</p> <input type="text" name="service_plan" /><br />
+			<p>Download Rate:</p> <input type="text" name="drate" /><br />
+			<p>Upload Rate:</p> <input type="text" name="urate" /><br />	
+			<p>Geographic Location:</p> <input type="text" name="location" /><br />
+			<input type="submit" value="Submit" />
+		</form>
+        </div>
+
+{% endblock %}
