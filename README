@@ -1,0 +1,3 @@
+Django backend for BISmark user registration. 
+
+Workflow includes passing of an OAuth2.0 authentication token to verify that a user has registered. 
