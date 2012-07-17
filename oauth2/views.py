@@ -18,7 +18,7 @@ import time
 def profile(request): 
     template = {
 	'user': request.user, 
-	'router': Router.objects.filter(user=request.user)[0]}
+	'router': Router.objects.filter(user=request.user)}
     return render_to_response(
 	'registration/profile.html', 
 	template, 
@@ -41,7 +41,7 @@ def cont_register(request):
 	for i in vars: 
 	    router.__setattr__(i, request.REQUEST.get(i))
 	router.save()
-	return HttpResponseRedirect("/oauth2/authorize?redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Fclient%2F&response_type=code")
+	return HttpResponseRedirect("/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code")
     return HttpResponseRedirect("/register/")
 
 @login_required

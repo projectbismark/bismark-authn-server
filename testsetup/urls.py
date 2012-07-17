@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^oauth2/token/?$',                    'oauth2app.token.handler'),
     url(r'^client/$', 'oauth2.views.client'),
     url(r'^check/$', 'oauth2.views.check'),
-    url(r'^register/$', 'oauth2.views.cont_register'),
+    url(r'^$', 'oauth2.views.cont_register'),
     url(r'^accounts/profile/$', 'oauth2.views.profile'),  
     (r'^accounts/', include('registration.backends.default.urls')),
 )

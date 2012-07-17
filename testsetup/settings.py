@@ -1,4 +1,4 @@
-# Django settings for testsetup project.
+#Django settings for testsetup project.
 
 import os
 
@@ -137,6 +137,12 @@ INSTALLED_APPS = (
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+# set to SMTP server
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 
 OAUTH2_TOKEN_EXPIRATION=86300 # 1 day
 OAUTH2_ACCESS_TOKEN_EXPIRATION=31556926 # 1 year
