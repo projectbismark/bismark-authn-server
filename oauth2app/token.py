@@ -218,8 +218,6 @@ class TokenGenerator(object):
                     raise InvalidClient('Client authentication failed.')
             else:
                 raise InvalidClient('Client authentication failed.')
-        elif self.client_secret != self.client.secret:
-            raise InvalidClient('Client authentication failed.')
 
     def _validate_client_credentials(self):
         """Validate a client_credentials request."""
