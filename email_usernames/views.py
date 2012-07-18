@@ -27,8 +27,11 @@ def email_login(request, template="registration/login.html", extra_context=None)
             return HttpResponseRedirect(next_page)
     else:
         login_form = EmailLoginForm()
-
-    context = { 'login_form':login_form, 'next':request.GET.get('next') }
+    if request.GET.get('next') is None: 
+	_next = ''
+    else
+	_next = request.GET.get('next')
+    context = { 'login_form':login_form, 'next':_next }
     if extra_context is None: extra_context = {}
     for key, value in extra_context.items():
         if callable(value):
