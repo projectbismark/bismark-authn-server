@@ -17,7 +17,7 @@ import time
 @login_required
 def profile(request): 
     template = {
-	'user': request.user, 
+	'user': request.user.email, 
 	'router': Router.objects.filter(user=request.user)}
     return render_to_response(
 	'registration/profile.html', 

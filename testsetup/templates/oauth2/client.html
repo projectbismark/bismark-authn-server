@@ -17,7 +17,7 @@
 	You will not need to view this page again. </p>	
 	<form method="post" action="/oauth2/token" class="authenticate">
 		<input type="hidden" name="grant_type" value="authorization_code" />
-		<input type="hidden" name="code"value="{{ code.0.key }}" />
+		<input type="hidden" name="code" value="{{ code.0.key }}" />
 		<input type="hidden" name="redirect_uri" value="{{ code.0.redirect_uri }}" />
 		<input type="hidden" name="client_id" value="{{ code.0.client.key }}" />
 		<input type="submit" value="Submit"/>

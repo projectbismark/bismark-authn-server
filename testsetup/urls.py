@@ -1,8 +1,8 @@
 from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -13,13 +13,14 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # url(r'^account/login', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^oauth2/missing_redirect_uri/?$',   'oauth2.views.missing_redirect_uri'),
     url(r'^oauth2/authorize/?$',                'oauth2.views.authorize'),
     url(r'^oauth2/token/?$',                    'oauth2app.token.handler'),
     url(r'^client/$', 'oauth2.views.client'),
     url(r'^check/$', 'oauth2.views.check'),
-    url(r'^$', 'oauth2.views.cont_register'),
-    url(r'^accounts/profile/$', 'oauth2.views.profile'),  
-    (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/form/$', 'oauth2.views.cont_register'),
+    url(r'^$', 'oauth2.views.profile'),   
+    (r'^accounts/', include('email_usernames.urls')), 
+    (r'^accounts/', include('registration.backends.default.urls')), 
 )
