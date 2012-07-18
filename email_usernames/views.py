@@ -23,7 +23,10 @@ def email_login(request, template="registration/login.html", extra_context=None)
             # The user has been authenticated, so log in and redirect
             user = login(request, login_form.user)
             # Redirect to page pointed to by the 'next' param, or else just the first page
-            next_page = request.REQUEST.get('next', settings.LOGIN_REDIRECT_URL)
+            if request.REQUEST.get('next') != 'None'): 
+	        next_page = request.REQUEST.get('next')
+	    else: 
+		next_page = settings.LOGIN_REDIRECT_URL
             return HttpResponseRedirect(next_page)
     else:
         login_form = EmailLoginForm()
