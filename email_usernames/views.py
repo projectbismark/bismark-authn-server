@@ -29,7 +29,7 @@ def email_login(request, template="registration/login.html", extra_context=None)
         login_form = EmailLoginForm()
     if request.GET.get('next') is None: 
 	_next = ''
-    else
+    else: 
 	_next = request.GET.get('next')
     context = { 'login_form':login_form, 'next':_next }
     if extra_context is None: extra_context = {}
