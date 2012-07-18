@@ -24,6 +24,5 @@ def query_fix_usertable(sender, app, created_models, verbosity, interactive, **k
         
     from django.db import connection
     cursor = connection.cursor()
-    cursor.execute("ALTER TABLE auth_user MODIFY COLUMN username varchar(75) NOT NULL")
     
 post_syncdb.connect(query_fix_usertable)

@@ -150,8 +150,8 @@ LOGIN_REDIRECT_URL='/'
 ACCOUNT_ACTIVATION_DAYS = 7
 
 # set to SMTP server
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_HOST = 'mail.projectbismark.net'
+EMAIL_PORT = 25
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 
