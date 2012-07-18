@@ -14,7 +14,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        #'NAME': 'register.projectbismark.net/bismark-authn-server/sqlite.db',                      # Or path to database file if using sqlite3.
+        #'NAME': '/register.projectbismark.net/bismark-authn-server/sqlite.db',                      # Or path to database file if using sqlite3.
         'NAME': '/home/akahn/Desktop/testsetup/db/sqlite.db', 
 	'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -155,7 +155,7 @@ EMAIL_PORT = 1025
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 
-OAUTH2_TOKEN_EXPIRATION=86300 # 1 day
+OAUTH2_CODE_EXPIRATION=86300 # 1 day
 OAUTH2_ACCESS_TOKEN_EXPIRATION=31556926 # 1 year
 
 # A sample logging configuration. The only tangible logging
