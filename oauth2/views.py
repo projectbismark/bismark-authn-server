@@ -42,7 +42,7 @@ def cont_register(request):
 	    router.__setattr__(i, request.REQUEST.get(i))
 	router.save()
 	return HttpResponseRedirect("/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code")
-    return HttpResponseRedirect("/register/")
+    return HttpResponseRedirect("/")
 
 @login_required
 def missing_redirect_uri(request):
