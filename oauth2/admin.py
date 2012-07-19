@@ -5,6 +5,12 @@ from oauth2app.models import Client, Code, AccessToken
 
 admin.site.unregister(User)
 
+def clean_cascade_delete(modeladmin, request, queryset): 
+    for i in queryset: 
+	i.delete()
+clean_cascade_delete.short_description = "Delete users and associated models (Router object)"
+
+
 class RouterInline(admin.StackedInline): 
     model = Router
     extra = 0
@@ -26,6 +32,8 @@ class UserAdmin(admin.ModelAdmin):
         (None, 	{'fields': ['username', 'email', 'is_superuser']})
     ]
     inlines = [RouterInline, ClientInline, CodeInline, AccessTokenInline]
-
+    actions = [clean_cascade_delete]
+    
+admin.site.disable_action('delete_selected')
 
 admin.site.register(User, UserAdmin)
