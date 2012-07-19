@@ -65,29 +65,7 @@ def authorize(request):
         # The request is malformed or invalid. Automatically 
         # redirects to the provided redirect URL.
         return authorizer.error_redirect()
-    #if request.method == 'GET':
-        # Make sure the authorizer has validated before requesting the client
-        # or access_ranges as otherwise they will be None.
-	#template = {
-            #"client":authorizer.client, 
-            #"access_ranges":authorizer.access_ranges, 
-	    #"form_action":'/oauth2/authorize?%s' % authorizer.query_string}
-        #template["form"] = AuthorizeForm()
-        #helper = FormHelper()
-        #yes_submit = Submit('connect', 'Click to Continue')
-        #helper.add_input(yes_submit)
-        #helper.form_action = '/oauth2/authorize?%s' % authorizer.query_string
-        #helper.form_method = 'POST'
-        #template["helper"] = helper
-        #return render_to_response(
-            #'oauth2/authorize.html', 
-            #template, 
-            #RequestContext(request))
-    #elif request.method == 'POST':
-        #form = AuthorizeForm(request.POST)
-        #if form.is_valid():
     return authorizer.grant_redirect()
-    #return HttpResponseRedirect("/")
 
 @login_required
 def client(request):
@@ -115,5 +93,5 @@ def check(request):
     except AuthenticationException:
         # Return an error response.
         return authenticator.error_response(content="You didn't authenticate.")
-    username = authenticator.user.username
+    username = authenticator.user.email
     return HttpResponse(content="good token %s" % username)

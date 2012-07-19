@@ -4,22 +4,22 @@
 
 {% block content %}
 
-        <h2>{{user}}'s profile</h2></br>
+        <h2>{{user}}'s profile</h2><br />
 
         <div class="content_container">
-                <label>ISP: {{router.0.isp}}</label></br>
-                <label>Location: {{router.0.location}}</label></br>
-                <label>Service Type: {{router.0.service_type}}</label></br>
-                <label>Service Plan: {{router.0.service_plan}}</label></br>
-                <label>Upload Rate: {{router.0.urate}}</label></br>
-                <label>Download Rate: {{router.0.drate}}</label></br>
+                <label>ISP: {{router.0.isp}}</label><br />
+                <label>Location: {{router.0.location}}</label><br />
+                <label>Service Type: {{router.0.service_type}}</label><br />
+                <label>Service Plan: {{router.0.service_plan}}</label><br />
+                <label>Upload Rate: {{router.0.urate}}</label><br />
+                <label>Download Rate: {{router.0.drate}}</label><br />
         </div>
-	</br>	
+	<br />	
 	
-	<a href="http://register.projectbismark.net/accounts/form/">Click here if any of the above fields are empty</a></br></br>
+	<a href="http://register.projectbismark.net/accounts/form/">Click here if any of the above fields are empty</a><br /><br />
 
 
-	<a href="http://register.projectbismark.net/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code">Click here if your registration token stopped working</a></br>
+	<a href="http://register.projectbismark.net/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code">Click here if your registration token stopped working</a><br />
 
 {% endblock %}
 
