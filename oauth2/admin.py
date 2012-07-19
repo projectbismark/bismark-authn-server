@@ -8,8 +8,7 @@ admin.site.unregister(User)
 def clean_cascade_delete(modeladmin, request, queryset): 
     for i in queryset: 
 	i.delete()
-clean_cascade_delete.short_description = "Delete users and associated models (Router object)"
-
+clean_cascade_delete.short_description = "Delete selected users and associated objects"
 
 class RouterInline(admin.StackedInline): 
     model = Router
