@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Router(models.Model): 
+class Router(models.Model):
+	def __unicode__(self): 
+		 return self.user.email
 	user = models.ForeignKey(User)
 	isp = models.CharField(max_length=100)
 	location = models.CharField(max_length=100)

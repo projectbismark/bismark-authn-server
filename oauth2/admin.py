@@ -23,7 +23,7 @@ class AccessTokenInline(admin.StackedInline):
 
 class UserAdmin(admin.ModelAdmin): 
     fieldsets = [
-        (None, 	{'fields': ['email', 'password']})
+        (None, 	{'fields': ['email', 'password', 'is_superuser']})
     ]
     inlines = [RouterInline, ClientInline, CodeInline, AccessTokenInline]
 
