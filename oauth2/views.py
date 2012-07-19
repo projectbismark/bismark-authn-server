@@ -37,6 +37,8 @@ def cont_register(request):
 	user = request.user
 	if not Router.objects.filter(user=user).count() > 0: 
 	    router = Router.objects.create(user=user)
+	else: 
+	    router = Router.objects.get(user=user)
 	vars = ('isp', 'location', 'service_type', 'service_plan', 'drate', 'urate')
 	for i in vars: 
 	    router.__setattr__(i, request.REQUEST.get(i))
