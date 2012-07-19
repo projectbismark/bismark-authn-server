@@ -69,6 +69,9 @@ class Client(models.Model):
       *Default None*
 
     """
+    def __unicode__(self): 
+	return self.user.email
+
     name = models.CharField(max_length=256)
     user = models.ForeignKey(User)
     description = models.TextField(null=True, blank=True)
@@ -81,7 +84,7 @@ class Client(models.Model):
         unique=True,
         max_length=CLIENT_SECRET_LENGTH,
         default=KeyGenerator(CLIENT_SECRET_LENGTH))
-    redirect_uri = models.URLField(null=True)
+    redirect_uri = models.URLField(null=True, blank=True)
 
 
 class AccessRange(models.Model):
@@ -124,6 +127,8 @@ class AccessToken(models.Model):
       refreshable. *Default False*
 
     """
+    def __unicode__(self): 
+	return self.user.email + ' ' + str(self.expire - time.time())
     client = models.ForeignKey(Client)
     user = models.ForeignKey(User)
     token = models.CharField(
@@ -149,7 +154,7 @@ class AccessToken(models.Model):
         default=TimestampGenerator())
     expire = models.PositiveIntegerField(
         default=TimestampGenerator(ACCESS_TOKEN_EXPIRATION))
-    scope = models.ManyToManyField(AccessRange)
+    scope = models.ManyToManyField(AccessRange, blank=True)
     refreshable = models.BooleanField(default=REFRESHABLE)
 
 
@@ -172,6 +177,8 @@ class Code(models.Model):
     * *scope:* A list of oauth2app.models.AccessRange objects. *Default None*
 
     """
+    def __unicode__(self): 
+	return self.user.email + ' ' + str(self.expire - time.time())
     client = models.ForeignKey(Client)
     user = models.ForeignKey(User)
     key = models.CharField(
@@ -185,7 +192,7 @@ class Code(models.Model):
     expire = models.PositiveIntegerField(
         default=TimestampGenerator(CODE_EXPIRATION))
     redirect_uri = models.URLField(null=True)
-    scope = models.ManyToManyField(AccessRange)
+    scope = models.ManyToManyField(AccessRange, blank=True)
 
 
 class MACNonce(models.Model):
