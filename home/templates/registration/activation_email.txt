@@ -1,1 +1,0 @@
-Please visit {{site}}/accounts/activate/{{activation_key}} to complete the registration process.  
