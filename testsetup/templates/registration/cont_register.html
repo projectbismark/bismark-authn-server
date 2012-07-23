@@ -9,23 +9,11 @@
         <div class="content_container">
                 <p>The following information will be stored and used to accurately measure your usage.</p>
 		<form name="input" action="." method="POST">{% csrf_token %}
-			<p>ISP:</p> <input type="text" name="isp" /><br />
-			<p>Service Type:</p> <select id="input_type" name="service_type">
-				<option selected></option>
-				<option>DSL</option>
-				<option>Fiber</option>
-				<option>Cable</option>
-				<option>Wireless - Cellular</option>
-				<option>Wireless - WiMAX</option>
-				<option>Wireless - 802.11</option>
-				<option>Other</option>
-			</select><br />
-			<p>Service Plan:</p> <input type="text" name="service_plan" /><br />
-			<p>Download Rate:</p> <input type="text" name="drate" /><br />
-			<p>Upload Rate:</p> <input type="text" name="urate" /><br />	
-			<p>Geographic Location:</p> <input type="text" name="location" /><br />
+			{{ info_form.as_p }}
 			<input type="submit" value="Submit" />
 		</form>
+		<br />
+		<p>If you are unable to answer any one of the above questions, you may leave this page and try again another time. </p>
         </div>
 
 {% endblock %}
