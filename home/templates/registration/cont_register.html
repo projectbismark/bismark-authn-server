@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}BISmark- Account Registration{% endblock %}
+
+{% block content %}
+
+        <h2>Account Registration</h2>
+
+        <div class="content_container">
+                <p>The following information will be stored and used to accurately measure your usage.</p>
+		<form name="input" action="." method="POST">{% csrf_token %}
+			{{ info_form.as_p }}
+			<input type="submit" value="Submit" />
+		</form>
+		<br />
+		<p>If you are unable to answer any one of the above questions, you may leave this page and try again another time. </p>
+        </div>
+
+{% endblock %}
