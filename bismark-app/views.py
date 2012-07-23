@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 from oauth2app.authorize import Authorizer, MissingRedirectURI, AuthorizationException
 from oauth2app.authorize import UnvalidatedRequest, UnauthenticatedUser
 from oauth2app.authenticate import Authenticator, AuthenticationException
-from .forms import AuthorizeForm
+from .forms import AuthorizeForm, InfoForm
 from oauth2app.models import Client, AccessToken, Code
-from oauth2.models import Router
+from .models import Router
 from base64 import b64encode
 from django.contrib.auth.forms import UserCreationForm
 import time
@@ -26,25 +26,25 @@ def profile(request):
 
 @login_required
 def cont_register(request): 
-    template = {
-        'user': request.user}
-    if request.method == 'GET':
-        return render_to_response(
-	    'registration/cont_register.html', 
-	    template, 
-	    RequestContext(request))
-    elif request.method == 'POST':
-	user = request.user
-	if not Router.objects.filter(user=user).count() > 0: 
-	    router = Router.objects.create(user=user)
-	else: 
-	    router = Router.objects.get(user=user)
-	vars = ('isp', 'location', 'service_type', 'service_plan', 'drate', 'urate')
-	for i in vars: 
-	    router.__setattr__(i, request.REQUEST.get(i))
-	router.save()
-	return HttpResponseRedirect("/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code")
-    return HttpResponseRedirect("/")
+    if request.method == 'POST':
+	info_form = InfoForm(data=request.POST)
+        if info_form.is_valid():
+	    user = request.user
+	    if not Router.objects.filter(user=user).count() > 0: 
+	        router = Router.objects.create(user=user)
+	    else: 
+	        router = Router.objects.get(user=user)
+	    vars = ('isp', 'location', 'service_type', 'service_plan', 'drate', 'urate')
+	    for i in vars: 
+	        router.__setattr__(i, request.REQUEST.get(i))
+	    router.save()
+	    return HttpResponseRedirect("/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code")
+    else:
+        info_form = InfoForm()
+    context = { 'info_form':info_form, 'user':request.user }
+    
+    return render_to_response('registration/cont_register.html', context, context_instance=RequestContext(request))
+
 
 @login_required
 def missing_redirect_uri(request):

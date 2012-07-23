@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from oauth2.models import Router
+from .models import Router
 from oauth2app.models import Client, Code, AccessToken
 
 admin.site.unregister(User)

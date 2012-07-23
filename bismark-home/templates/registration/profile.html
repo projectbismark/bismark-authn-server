@@ -13,13 +13,18 @@
                 <label>Service Plan: {{router.0.service_plan}}</label><br />
                 <label>Upload Rate: {{router.0.urate}}</label><br />
                 <label>Download Rate: {{router.0.drate}}</label><br />
-        </div>
-	<br />	
-	
-	<a href="http://register.projectbismark.net/accounts/form/">Click here if any of the above fields are empty</a><br /><br />
-
-
-	<a href="http://register.projectbismark.net/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code">Click here if your registration token stopped working</a><br />
-
+	</div>
+	<br />
+	<div class="main">	
+		<div class="main-left">
+			<a href="http://register.projectbismark.net/accounts/form/">Edit your BISmark profile</a>
+			<p class="notes">Click to edit the above fields. Please ensure they are complete and correct. </p>
+		</div>
+		<div class="main-right">
+			<a href="http://register.projectbismark.net/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code">Validate your registration</a>
+			<p class="notes">Clicking above will generate your registration token which turns off the BISmark portal. </p>
+		</div>
+		<br />
+	</div>
 {% endblock %}
 
