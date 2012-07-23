@@ -157,7 +157,7 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 
 OAUTH2_CODE_EXPIRATION=86300 # 1 day
-OAUTH2_ACCESS_TOKEN_EXPIRATION=31556926 # 1 year
+OAUTH2_ACCESS_TOKEN_EXPIRATION=157784630 # 5 years
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
