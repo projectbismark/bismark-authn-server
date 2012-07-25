@@ -12,3 +12,6 @@ class InfoForm(forms.Form):
     drate = forms.IntegerField(label="Download Rate")
     urate = forms.IntegerField(label="Upload Rate")
     location = forms.CharField(label="City", max_length=75, widget=forms.TextInput(attrs=dict(maxlength=75)))
+
+class GatewayForm(forms.Form): 
+    gateway = forms.IPAddressField(label="Current Default Gateway")

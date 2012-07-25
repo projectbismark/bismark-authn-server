@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from oauth2app.authorize import Authorizer, MissingRedirectURI, AuthorizationException
 from oauth2app.authorize import UnvalidatedRequest, UnauthenticatedUser
 from oauth2app.authenticate import Authenticator, AuthenticationException
-from .forms import AuthorizeForm, InfoForm
+from .forms import AuthorizeForm, InfoForm, GatewayForm
 from oauth2app.models import Client, AccessToken, Code
 from .models import Router
 from base64 import b64encode
@@ -76,10 +76,20 @@ def client(request):
         "basic_auth":"Basic %s" % b64encode(client.key + ":" + client.secret),
         "code":Code.objects.filter(client=client).select_related().order_by("expire").reverse(),
         "access_tokens":AccessToken.objects.filter(client=client).select_related()}
-    template["error_description"] = request.GET.get("error_description")
     if AccessToken.objects.filter(client=client).select_related().count() > 0 and token[0].expire > time.time():
-        return redirect('http://myrouter.projectbismark.net/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
+        if request.REQUEST.get('gateway') is not None: 
+	    gateway_form = GatewayForm(data=request.POST)
+            if gateway_form.is_valid():
+	        return redirect('http://' + request.REQUEST.get('gateway') + '/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
+	else: 
+	    gateway_form = GatewayForm()
+        template = {"gateway_form":gateway_form}
+	return render_to_response(
+            'oauth2/gateway.html',
+            template,
+            context_instance=RequestContext(request))
     else:
+        template["error_description"] = request.GET.get("error_description")
 	return render_to_response(
             'oauth2/client.html',
             template,

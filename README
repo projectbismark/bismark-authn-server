@@ -1,3 +1,13 @@
 Django backend for BISmark user registration. 
 
 Workflow includes passing of an OAuth2.0 authentication token to verify that a user has registered. 
+
+Directory layout: 
+
+bismark-app: Contains necessary forms, views, and models to interact with oauth2app library and django-registration library
+
+bismark-home: Home folder for settings, templates, static files
+
+email-usernames: App extends django-registration allowing user registration by email rather than by username
+
+oauth2app: App manages server-side of the OAuth2.0 protocol by producing tokens and managing authentication. 
