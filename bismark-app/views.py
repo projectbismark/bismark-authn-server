@@ -14,8 +14,10 @@ from base64 import b64encode
 from django.contrib.auth.forms import UserCreationForm
 import time
 
+@login_required
 def router(request): 
     if request.method == 'POST': 
+	client = Client.objects.get(user=request.user)
 	token = AccessToken.objects.filter(client=client).select_related().order_by("expire").reverse()
 	return redirect('http://' + request.POST.get('gateway') + '/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
     template ={}
