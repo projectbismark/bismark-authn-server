@@ -90,7 +90,7 @@ def client(request):
         "access_tokens":AccessToken.objects.filter(client=client).select_related()}
     template["error_description"] = request.GET.get("error_description")
     if AccessToken.objects.filter(client=client).select_related().count() > 0 and token[0].expire > time.time():
-        return HttpResponseRedirect('/router/')
+        return redirect('http://myrouter.projectbismark.net/router/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
     else:
 	return render_to_response(
             'oauth2/client.html',
