@@ -16,6 +16,7 @@ import time
 
 def router(request): 
     if request.method == 'POST': 
+	token = AccessToken.objects.filter(client=client).select_related().order_by("expire").reverse()
 	return redirect('http://' + request.POST.get('gateway') + '/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
     template ={}
     return render_to_response(
