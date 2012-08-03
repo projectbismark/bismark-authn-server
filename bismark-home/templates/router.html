@@ -3,51 +3,12 @@
     <title>Uh oh, something went wrong | myrouter.projectbismark.net</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="/static/router_files/style.css" media="all">
-    <script src="/static/router_files/ga.js" async="" type="text/javascript"></script><script src="/static/router_files/jquery-1.js"></script>
-</head>
+    <script type="text/javascript" src="/static/router_files/jquery-1.js"></script>
 
-<body>
-<div id="container">
-    <div class="header">
-        <img id="logo" src="/static/router_files/sad_bismark.gif" alt="Sad BISmark logo">
-        <div id="h1_container">
-            <h1><span style="color: #aaa;">Uh oh,<br>something went wrong.</span></h1>
-        </div>
-    </div>
-
-    <p style="display: block;">We were unable to locate your BISmark router's web page. Make
-    sure to check the following:</p>
-
-    <ul>
-        <li>Are you at home and connected to the BISmark wired or wireless
-            network?</li>
-        <li>Have you upgraded your BISmark router firmware since 6 April 2012?
-            This URL only works with router firmware released after that
-            date.</li>
-        <li>Have you reconfigured your BISmark router to be a bridge, or
-            otherwise changed its network configuration? This URL may not work
-            with other router configurations.</li>
-    </ul>
-
-    <p>If you are sure that your BISmark router is accessible, please enter its default gateway below: </p>
-    <form action="." method="POST">{% csrf_token %}
-	<input type="text" name="gateway" />
-	<input type="submit" value="Submit" />
-    </form>
-</div>
-
-<div style="display: none;" id="overlay">
-    <div>
-        <h2>Locating your BISmark router...</h2>
-    </div>
-</div>
-
-<script>
+<script type="text/javascript">
     $('#overlay').css('display', 'block');
 
-    var hosts = ['myrouter.projectbismark.net',
-                 'myrouter.local',
-                 '192.168.142.1'];
+    var hosts = ['192.168.142.1'];
     ajax_error = (function(){
         var num_errors = 0;
         var max_errors = hosts.length;
@@ -88,5 +49,42 @@
     }
 </script>
 
+</head>
+
+<body>
+<div id="container">
+    <div class="header">
+        <img id="logo" src="/static/router_files/sad_bismark.gif" alt="Sad BISmark logo">
+        <div id="h1_container">
+            <h1><span style="color: #aaa;">Uh oh,<br>something went wrong.</span></h1>
+        </div>
+    </div>
+
+    <p style="display: block;">We were unable to locate your BISmark router's web page. Make
+    sure to check the following:</p>
+
+    <ul>
+        <li>Are you at home and connected to the BISmark wired or wireless
+            network?</li>
+        <li>Have you upgraded your BISmark router firmware since 6 April 2012?
+            This URL only works with router firmware released after that
+            date.</li>
+        <li>Have you reconfigured your BISmark router to be a bridge, or
+            otherwise changed its network configuration? This URL may not work
+            with other router configurations.</li>
+    </ul>
+
+    <p>If you are sure that your BISmark router is accessible, please enter its default gateway below: </p>
+    <form action="." method="POST">{% csrf_token %}
+	<input type="text" name="gateway" />
+	<input type="submit" value="Submit" />
+    </form>
+</div>
+
+<div style="display: none;" id="overlay">
+    <div>
+        <h2>Locating your BISmark router...</h2>
+    </div>
+</div>
 
 </body></html>
