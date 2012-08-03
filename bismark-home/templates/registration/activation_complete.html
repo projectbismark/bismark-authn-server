@@ -5,7 +5,12 @@
 {% block content %}
 
         <h2>Redirect</h2>
+	<div id="nojs">Please enable Javascript in your browser to continue. </div>
 
-        <meta http-equiv="Refresh" content="0;url=http://register.projectbismark.net/accounts/form/" />
+<script type="text/javascript">
+<!--
+	window.location = "http://register.projectbismark.net/accounts/form/"
+//-->
+</script>
 
 {% endblock %}
