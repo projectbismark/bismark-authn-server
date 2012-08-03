@@ -14,6 +14,15 @@ from base64 import b64encode
 from django.contrib.auth.forms import UserCreationForm
 import time
 
+def router(request): 
+    if request.method == 'POST': 
+	return redirect('http://' + request.POST.get('gateway') + '/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
+    template ={}
+    return render_to_response(
+        'router.html',
+        template,
+        RequestContext(request))
+
 @login_required
 def profile(request): 
     template = {
@@ -78,7 +87,7 @@ def client(request):
         "access_tokens":AccessToken.objects.filter(client=client).select_related()}
     template["error_description"] = request.GET.get("error_description")
     if AccessToken.objects.filter(client=client).select_related().count() > 0 and token[0].expire > time.time():
-        return redirect('http://myrouter.projectbismark.net/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
+        return HttpResponseRedirect('/router/')
     else:
 	return render_to_response(
             'oauth2/client.html',
