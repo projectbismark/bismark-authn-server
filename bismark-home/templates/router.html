@@ -1,14 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
-    <title>Uh oh, something went wrong | myrouter.projectbismark.net</title>
+    <title>Uh oh, something went wrong | register.projectbismark.net</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="/static/router_files/style.css" media="all">
-    <script type="text/javascript" src="/static/router_files/jquery-1.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" media="all">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 
 <script type="text/javascript">
     $('#overlay').css('display', 'block');
 
-    var hosts = ['192.168.142.1'];
+    var hosts = ['myrouter.projectbismark.net', 
+		 'myrouter.local', 
+		 '192.168.142.1'];
     ajax_error = (function(){
         var num_errors = 0;
         var max_errors = hosts.length;
@@ -22,7 +25,7 @@
     for (var idx in hosts) {
         (function() {
             var theurl = ("http://" + hosts[idx] +
-                          "/cgi-bin/projectbismark-verify");
+                          "/cgi-bin/register-verify");
             $.ajax({
                 type: "GET",
                 url: theurl,
@@ -34,7 +37,7 @@
                         $.ajax({
                             type: 'GET',
                             url: ("http://" + router_ip +
-                                  "/cgi-bin/projectbismark-verify"),
+                                  "/cgi-bin/register-verify"),
                             error: ajax_error,
                             success: function(data, textStatus, jqXHR) {
                                 window.location = "http://" + router_ip;
@@ -54,7 +57,7 @@
 <body>
 <div id="container">
     <div class="header">
-        <img id="logo" src="/static/router_files/sad_bismark.gif" alt="Sad BISmark logo">
+        <img id="logo" src="/static/css/sad_bismark.gif" alt="Sad BISmark logo">
         <div id="h1_container">
             <h1><span style="color: #aaa;">Uh oh,<br>something went wrong.</span></h1>
         </div>
@@ -74,10 +77,10 @@
             with other router configurations.</li>
     </ul>
 
-    <p>If you are sure that your BISmark router is accessible, please enter its default gateway below: </p>
+    <p>If you are sure that your BISmark router is accessible, please enter its default gateway below and click "Find my router". </p>
     <form action="." method="POST">{% csrf_token %}
 	<input type="text" name="gateway" />
-	<input type="submit" value="Submit" />
+	<input type="submit" value="Find my router" />
     </form>
 </div>
 

@@ -16,6 +16,8 @@ import time
 
 @login_required
 def router(request): 
+    """Page attempts to redirect and pass token to router url. """
+
     if request.method == 'POST': 
 	client = Client.objects.get(user=request.user)
 	token = AccessToken.objects.filter(client=client).select_related().order_by("expire").reverse()
@@ -28,6 +30,8 @@ def router(request):
 
 @login_required
 def profile(request): 
+    """Generic profile page, contains navigation to edit profile and download
+    token.  """
     template = {
 	'user': request.user.email, 
 	'router': Router.objects.filter(user=request.user)}
@@ -38,6 +42,7 @@ def profile(request):
 
 @login_required
 def cont_register(request): 
+    """Page contains router info form and creates user's router object. """
     if request.method == 'POST':
 	info_form = InfoForm(data=request.POST)
         if info_form.is_valid():
@@ -46,20 +51,23 @@ def cont_register(request):
 	        router = Router.objects.create(user=user)
 	    else: 
 	        router = Router.objects.get(user=user)
-	    vars = ('isp', 'location', 'service_type', 'service_plan', 'drate', 'urate')
+	    vars = ('isp', 'service_type', 'service_plan', 'drate', 'urate', 'city', 'state', 'country')
 	    for i in vars: 
 	        router.__setattr__(i, request.REQUEST.get(i))
 	    router.save()
 	    return HttpResponseRedirect("/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code")
     else:
-        info_form = InfoForm()
+	if not Router.objects.filter(user=request.user).count() > 0:
+            info_form = InfoForm()
+	else: 
+	    info_form = InfoForm(data=Router.objects.filter(user=request.user).values()[0])
     context = { 'info_form':info_form, 'user':request.user }
-    
     return render_to_response('registration/cont_register.html', context, context_instance=RequestContext(request))
 
 
 @login_required
 def missing_redirect_uri(request):
+    """Error page required by oauth2app. """
     return render_to_response(
         'oauth2/missing_redirect_uri.html', 
         {}, 
@@ -68,6 +76,7 @@ def missing_redirect_uri(request):
 
 @login_required
 def authorize(request):
+    """Client authorize page (protocol ignored since there are no clients) """
     authorizer = Authorizer()
     try:
         authorizer.validate(request)
@@ -81,6 +90,8 @@ def authorize(request):
 
 @login_required
 def client(request):
+    """Page sends token request, then redirects to download token to router. 
+    """
     client = Client.objects.get(user=request.user)
     token = AccessToken.objects.filter(client=client).select_related().order_by("expire").reverse()
     template = {
@@ -90,7 +101,7 @@ def client(request):
         "access_tokens":AccessToken.objects.filter(client=client).select_related()}
     template["error_description"] = request.GET.get("error_description")
     if AccessToken.objects.filter(client=client).select_related().count() > 0 and token[0].expire > time.time():
-        return redirect('http://myrouter.projectbismark.net/router/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
+        return redirect('http://myrouter.projectbismark.net/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
     else:
 	return render_to_response(
             'oauth2/client.html',
@@ -98,6 +109,7 @@ def client(request):
             RequestContext(request))
 
 def check(request):
+    """"Page accessed by check script to verify router has token. """
     authenticator = Authenticator()
     try:
         # Validate the request.

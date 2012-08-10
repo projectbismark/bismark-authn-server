@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'oauth2app',
     'registration', 
     'email_usernames', 
+    'django_countries',
 )
 
 LOGIN_REDIRECT_URL='/'

@@ -158,3 +158,8 @@ input.h2 {
     padding-bottom: 1em;
     margin: 0px;
 }
+
+#extend {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}

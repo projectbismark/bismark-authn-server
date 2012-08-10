@@ -28,7 +28,7 @@ class AccessTokenInline(admin.StackedInline):
 
 class UserAdmin(admin.ModelAdmin): 
     fieldsets = [
-        (None, 	{'fields': ['username', 'email', 'is_superuser']})
+        (None, 	{'fields': ['username', 'email', 'is_staff']})
     ]
     inlines = [RouterInline, ClientInline, CodeInline, AccessTokenInline]
     actions = [clean_cascade_delete]
