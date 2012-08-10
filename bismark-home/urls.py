@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+import django.contrib.auth.views
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -21,6 +22,10 @@ urlpatterns = patterns('',
     url(r'^accounts/form/$', 'bismark-app.views.cont_register'),
     url(r'^$', 'bismark-app.views.profile'), 
     url(r'^router/$', 'bismark-app.views.router'), 
+    url(r'^password_reset/$', 'django.contrib.auth.views.password_reset'),
+    url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
+    url(r'^reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm'),
+    url(r'^reset/done/$', 'django.contrib.auth.views.password_reset_complete'),
     (r'^accounts/', include('email_usernames.urls')), 
     (r'^accounts/', include('registration.backends.default.urls')), 
 )

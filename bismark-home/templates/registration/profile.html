@@ -4,24 +4,38 @@
 
 {% block content %}
 
-        <h2>{{user}}'s profile</h2><br />
+        <h2>Your Profile</h2>
+	<p class="notes">{{ user }}</p>
 
         <div class="content_container">
-                <label>ISP: {{router.0.isp}}</label><br />
-                <label>Location: {{router.0.location}}</label><br />
-                <label>Service Type: {{router.0.service_type}}</label><br />
-                <label>Service Plan: {{router.0.service_plan}}</label><br />
-                <label>Upload Rate: {{router.0.urate}}</label><br />
-                <label>Download Rate: {{router.0.drate}}</label><br />
+		<div class="row-fluid" id="extend"><div class="span2"></div><div class="span3">
+                <p>ISP:</p>
+                <p>Location:</p>
+                <p>Service Type:</p>
+                <p>Service Plan:</p>
+		{% if router.0.urate %}
+                	<p>Upload Rate:</p>
+                	<p>Download Rate:</p>
+		{% endif %}
+		</div><div class="span7">
+			<p>{{router.0.isp}}</p>
+			<p>{{router.0.city}}, {{router.0.state}}, {{router.0.country}}</p>
+			<p>{{router.0.service_type}}</p>
+			<p>{{router.0.service_plan}}</p>
+			{% if router.0.urate %}
+				<p>{{router.0.urate}}</p>
+				<p>{{router.0.drate}}</p>
+			{% endif %}
+		</div></div>
 	</div>
-	<br />
+	<p>For more information about BISmark, please visit <a href='http://projectbismark.net/'>http://projectbismark.net/</a>.</p>
 	<div class="main">	
 		<div class="main-left">
-			<a href="http://register.projectbismark.net/accounts/form/">Edit your BISmark profile</a>
+			<a href="/accounts/form/">Edit your BISmark profile</a>
 			<p class="notes">Click to edit the above fields. Please ensure they are complete and correct. </p>
 		</div>
 		<div class="main-right">
-			<a href="http://register.projectbismark.net/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code">Validate your registration</a>
+			<a href="/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code">Validate your registration</a>
 			<p class="notes">Clicking above will generate your registration token which turns off the BISmark portal. </p>
 		</div>
 		<br />

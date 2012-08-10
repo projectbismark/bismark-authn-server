@@ -1,1 +1,5 @@
-Please visit {{site}}/accounts/activate/{{activation_key}} to complete the registration process.  
+You're receiving this e-mail because you registered a BISmark router.
+
+Please visit https://{{site}}/accounts/activate/{{activation_key}} to complete the registration process.  
+
+For more information visit http://projectbismark.net/ .
