@@ -3,8 +3,11 @@ from django.contrib.auth.models import User
 from .models import Router
 from oauth2app.models import Client, Code, AccessToken
 
+#format admin site for management of users
+
 admin.site.unregister(User)
 
+#delete User object with associated Router, Client, Code, and AccessToken objects
 def clean_cascade_delete(modeladmin, request, queryset): 
     for i in queryset: 
 	i.delete()

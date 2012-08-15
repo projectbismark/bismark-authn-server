@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>Uh oh, something went wrong | register.projectbismark.net</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" media="all">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('#overlay').css('display', 'block');
+    $()
+    var hosts = ['myrouter.projectbismark.net', 
+		 'myrouter.local', 
+		 '192.168.142.1'];
+    ajax_error = (function(){
+        var num_errors = 0;
+        var max_errors = hosts.length;
+        return function(jqXHR, textStatus, errorThrown) {
+            num_errors++;
+            if(num_errors >= max_errors) {
+                $('#overlay').css('display', 'none');
+            }
+        }
+    })()
+    for (var idx in hosts) {
+        (function() {
+            var theurl = ("http://" + hosts[idx] +
+                          "/cgi-bin/register-verify");
+            $.ajax({
+                type: "GET",
+                url: theurl,
+                timeout: 1000,
+                error: ajax_error,
+                success: function(data, textStatus, jqXHR) {
+                    var router_ip = $.trim(data);
+                    if (router_ip.match(/^(\d+\.){3}\d+$/) != null ) {
+			$.ajax({
+                            type: 'GET',
+                            url: ("http://" + router_ip +
+                                  "/cgi-bin/register-verify"),
+                            error: ajax_error,
+                            success: function(data, textStatus, jqXHR) {
+                                window.location = "http://" + router_ip + "/cgi-bin/luci/bismark/genkey?token=" + "{{ token }}";
+                            }
+                        });
+                    } else {
+                        ajax_error(null,null,null);
+                    }
+                }
+            });
+        })();
+    }
+</script>
+
+</head>
+
+<body>
+<div id="container">
+    <div class="header">
+        <img id="logo" src="/static/css/sad_bismark.gif" alt="Sad BISmark logo">
+        <div id="h1_container">
+            <h1><span style="color: #aaa;">Uh oh,<br>something went wrong.</span></h1>
+        </div>
+    </div>
+
+    <p style="display: block;">We were unable to locate your BISmark router's web page. Make
+    sure to check the following:</p>
+
+    <ul>
+        <li>Are you at home and connected to the BISmark wired or wireless
+            network?</li>
+        <li>Have you upgraded your BISmark router firmware since 6 April 2012?
+            This URL only works with router firmware released after that
+            date.</li>
+        <li>Have you reconfigured your BISmark router to be a bridge, or
+            otherwise changed its network configuration? This URL may not work
+            with other router configurations.</li>
+    </ul>
+
+    <p>If you are sure that your BISmark router is accessible, please enter its default gateway below and click "Find my router". </p>
+    <form action="." method="POST" class="well form-inline">{% csrf_token %}
+	<input type="text" name="gateway" />
+	<button type="submit" class="btn">Find my router</button>
+    </form>
+</div>
+
+<div style="display: none;" id="overlay">
+    <div>
+        <h2>Locating your BISmark router...</h2>
+    </div>
+</div>
+
+</body></html>

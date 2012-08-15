@@ -10,20 +10,20 @@
 
 <div class="content_container">
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-<form method="POST" action=".">{% csrf_token %}
-{{ login_form.as_p }}
-<input type="hidden" name="next" value="{{next}}" />
-<input type="submit" value="Login" />
-</form>
+	{% if form.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+	{% endif %}
+	<form method="POST" action=".">{% csrf_token %}
+		{{ login_form.as_p }}
+		<input type="hidden" name="next" value="{{next}}" />
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
 
-<a href="/accounts/password/reset">Forgot your password?</a>
+	<a href="/accounts/password/reset">Forgot your password?</a>
 
-<br />
+	<br />
 
-<a href="/accounts/register">Don't have an account yet?</a>
+	<a href="/accounts/register">Don't have an account yet?</a>
 </div>
 
 {% endblock %}

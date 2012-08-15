@@ -10,7 +10,7 @@
         <div class="content_container">
                 <form action="." method="post">{% csrf_token %}
 			{{ form.as_p }}
-			<input type="submit" value="Submit" />
+			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 
 		<a href="../login/">Already Registered?</a>
