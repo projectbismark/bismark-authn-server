@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries import CountryField
 
+#Router object stores user information
 class Router(models.Model):
 	def __unicode__(self): 
 		 return self.user.email

@@ -11,3 +11,19 @@ bismark-home: Home folder for settings, templates, static files
 email-usernames: App extends django-registration allowing user registration by email rather than by username
 
 oauth2app: App manages server-side of the OAuth2.0 protocol by producing tokens and managing authentication. 
+
+To use oauth2app outside of the current framework, note the following: 
+
+- OAUTH2_CODE_EXPIRATION, OAUTH2_ACCESS_TOKEN_EXPIRATION set in settings.py are set for 1 week and 5 years, respectively. 
+- /authorize protocol is ignored, see http://oauth2app.readthedocs.org/en/latest/ for proper usage. 
+- Client objects are not used as intended, see above. 
+
+Other notes: 
+
+Django user's username field not used as intended, libraries edited to make it non-unique 'none'. User's email field used instead. 
+
+OAuth2.0 authentication flow as implemented: 
+	- form submit links to oauth2/authorize
+	- oauth2/authorize automatically generates request code, redirects to /client
+	- if valid access token, store, otherwise send request to oauth2/token and refresh
+	- Tokens authenticated at /check

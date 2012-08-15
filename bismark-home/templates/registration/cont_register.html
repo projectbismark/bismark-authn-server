@@ -12,18 +12,20 @@
 			<div class="span6">
 				{{ info_form.as_p }}
 			</div>
-			<label for="enable" id="extend"><input type="checkbox" name="enable" id="enable" /> Check this box if you do not know your plan's download or upload rate. </label>
-			<input type="submit" value="Submit" />
+			<label id="extend"><input type="checkbox" name="enable" id="enable"> Check this box if you do not know your plan's download or upload rate. </label>
+			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
-		<p>If you are unable to answer any one of the above questions, you may leave this page and try again another time. </p>
+		<label>If you are unable to answer any one of the questions asked, you may leave this page and try again another time. </label>
         </div></div>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#enable').change(function() {
 				$('#id_drate').toggle();
+				$('#id_drate').val('');
 				$("label[for='id_drate']").toggle();
 				$('#id_urate').toggle();
+				$('#id_urate').val('');
 				$("label[for='id_urate']").toggle();
 			});
 		});

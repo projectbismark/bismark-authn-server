@@ -16,15 +16,17 @@ import time
 
 @login_required
 def router(request): 
-    """Page attempts to redirect and pass token to router url. """
+    """Page attempts to redirect and pass token to router url. 
+	On GET emulates myrouter.projectbismark.net. On failure, user enters gateway into form which is handled by POST."""
 
+    client = Client.objects.get(user=request.user)
+    token = AccessToken.objects.filter(client=client).select_related().order_by("expire").reverse()
     if request.method == 'POST': 
-	client = Client.objects.get(user=request.user)
-	token = AccessToken.objects.filter(client=client).select_related().order_by("expire").reverse()
 	return redirect('http://' + request.POST.get('gateway') + '/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
-    template ={}
+    template ={
+	'token': token[0].token}
     return render_to_response(
-        'router.html',
+        'oauth2/router.html',
         template,
         RequestContext(request))
 
@@ -42,7 +44,7 @@ def profile(request):
 
 @login_required
 def cont_register(request): 
-    """Page contains router info form and creates user's router object. """
+    """Page contains router info form and creates user's router object. On submit begins OAuth protocol. """
     if request.method == 'POST':
 	info_form = InfoForm(data=request.POST)
         if info_form.is_valid():
@@ -55,7 +57,7 @@ def cont_register(request):
 	    for i in vars: 
 	        router.__setattr__(i, request.REQUEST.get(i))
 	    router.save()
-	    return HttpResponseRedirect("/oauth2/authorize?redirect_uri=http%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code")
+	    return HttpResponseRedirect("/oauth2/authorize?redirect_uri=https%3A%2F%2Fregister.projectbismark.net%2Fclient%2F&response_type=code")
     else:
 	if not Router.objects.filter(user=request.user).count() > 0:
             info_form = InfoForm()
@@ -76,7 +78,7 @@ def missing_redirect_uri(request):
 
 @login_required
 def authorize(request):
-    """Client authorize page (protocol ignored since there are no clients) """
+    """Client authorize page (protocol ignored since there are no clients). For more information see oauth2app docs. http://oauth2app.readthedocs.org/en/latest/ """
     authorizer = Authorizer()
     try:
         authorizer.validate(request)
@@ -90,8 +92,7 @@ def authorize(request):
 
 @login_required
 def client(request):
-    """Page sends token request, then redirects to download token to router. 
-    """
+    """Page sends token request if token does not exist, otherwise redirects to download token to router. """
     client = Client.objects.get(user=request.user)
     token = AccessToken.objects.filter(client=client).select_related().order_by("expire").reverse()
     template = {
@@ -101,7 +102,7 @@ def client(request):
         "access_tokens":AccessToken.objects.filter(client=client).select_related()}
     template["error_description"] = request.GET.get("error_description")
     if AccessToken.objects.filter(client=client).select_related().count() > 0 and token[0].expire > time.time():
-        return redirect('http://myrouter.projectbismark.net/cgi-bin/luci/oauth/genkey?token=' + token[0].token)
+        return HttpResponseRedirect('/router')
     else:
 	return render_to_response(
             'oauth2/client.html',

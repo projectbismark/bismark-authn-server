@@ -6,6 +6,7 @@ from django_countries.countries import COUNTRIES
 class AuthorizeForm(forms.Form):
     pass
 
+#form used to gather user information
 class InfoForm(forms.Form):
     isp = forms.CharField(label="Internet Service Provider (ISP)", max_length=75, widget=forms.TextInput(attrs=dict(maxlength=75)))
     service_type = forms.ChoiceField(label="Service Type", choices=(('DSL', 'DSL'), ('Fiber', 'Fiber'), ('Cable', 'Cable'), ('Wireless-Cellular', 'Wireless- Cellular'), ('Wireless- WiMAX', 'Wireless- WiMAX'), ('Wireless-802.11', 'Wireless- 802.11'), ('Other', 'Other')))
