@@ -6,10 +6,10 @@
 
 <script type="text/javascript">
     var hosts = ['myrouter.projectbismark.net', 
-		 'myrouter.local', 
-		 '192.168.142.1'];
+                 'myrouter.local', 
+                 '192.168.142.1'];
     for (var idx in hosts) {
-    	var theurl = 
+            var theurl = 
         $.ajax({
                 type: "GET",
                 url: "http://" + hosts[idx] + "/cgi-bin/register-nodeid",
@@ -17,69 +17,69 @@
                 success: function(data, textStatus, jqXHR) {
                     var node_id = $.trim(data);
                     $('#id_node_id').val(node_id);
-		    $('#node_id_group').hide();
+                    $('#node_id_group').hide();
                 }
             });
     }
 </script>
 
-        <h2>Account Registration</h2>
+<h2>Account Registration</h2>
 
-        <div class="content_container">
-                <p>This information will used to accurately assess the performance of your Internet connection.</p>
-		<form name="input" action="." method="POST" class="form-horizontal">{% csrf_token %}
-			<fieldset>
-			{% for field in info_form.visible_fields %}
-				{% ifnotequal field.html_name "unknown_plan" %}
-					<div class="control-group {% if field.errors %} error {% endif %}" id="{{ field.html_name }}_group">
-						<label style="width: 200px" class="control-label" for="{{ field.html_name }}">{{ field.label }}
-							{% ifequal field.html_name "node_id" %}
-								(<a href="/accounts/help" target="_blank">Help</a>)
-							{% endifequal %}
-</label>
-						<div class="controls" style="margin-left: 210px">
-							{{ field }}
-							{% if field.errors %}
-								<span class="help-inline">
-								{% for error in field.errors %}
-									{{ error|escape }}
-								{% endfor %}
-								</span>
-							{% endif %}
-						</div>
-					</div>
-					{% ifequal field.html_name "urate" %}
-					<div class="control-group">
-						<div class="controls" style="margin-left: 210px">
-						<label>{{ info_form.unknown_plan }} I don't know my plan's advertised download or upload rates.</label>
-						</div>
-					</div>
-					{% endifequal %}
-				{% endifnotequal %}
-			{% endfor %}
-			<div class="control-group">
-				<div class="controls" style="margin-left: 210px">
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
-			</div>
-			</fieldset>
-		</form>
-		If you cannot answer some of these questions, please leave this page and try again later.
+<div class="content_container">
+    <p>This information will used to accurately assess the performance of your Internet connection.</p>
+    <form name="input" action="." method="POST" class="form-horizontal">{% csrf_token %}
+        <fieldset>
+        {% for field in info_form.visible_fields %}
+            {% ifnotequal field.html_name "unknown_plan" %}
+                <div class="control-group {% if field.errors %} error {% endif %}" id="{{ field.html_name }}_group">
+                    <label style="width: 200px" class="control-label" for="{{ field.html_name }}">{{ field.label }}
+                        {% ifequal field.html_name "node_id" %}
+                                (<a href="/accounts/help" target="_blank">Help</a>)
+                        {% endifequal %}
+                    </label>
+                    <div class="controls" style="margin-left: 210px">
+                        {{ field }}
+                        {% if field.errors %}
+                            <span class="help-inline">
+                            {% for error in field.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% ifequal field.html_name "urate" %}
+                <div class="control-group">
+                    <div class="controls" style="margin-left: 210px">
+                        <label>{{ info_form.unknown_plan }} I don't know my plan's advertised download or upload rates.</label>
+                    </div>
+                </div>
+                {% endifequal %}
+            {% endifnotequal %}
+        {% endfor %}
+        <div class="control-group">
+            <div class="controls" style="margin-left: 210px">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
+        </fieldset>
+    </form>
+    If you cannot answer some of these questions, please leave this page and try again later.
+</div>
 
-	<script type="text/javascript">
-		function on_change() {
-			$('#drate_group').slideToggle();
-			$('#urate_group').slideToggle();
-			$('#id_drate').val('');
-			$('#id_urate').val('');
-		}
-		$(document).ready(function(){
-			$('#id_unknown_plan').change(on_change);
-			if ($('#id_unknown_plan').is(':checked')) {
-				on_change();
-			}
-		});
-	</script>
+<script type="text/javascript">
+        function on_change() {
+                $('#drate_group').slideToggle();
+                $('#urate_group').slideToggle();
+                $('#id_drate').val('');
+                $('#id_urate').val('');
+        }
+        $(document).ready(function(){
+                $('#id_unknown_plan').change(on_change);
+                if ($('#id_unknown_plan').is(':checked')) {
+                        on_change();
+                }
+        });
+</script>
 
 {% endblock %}
