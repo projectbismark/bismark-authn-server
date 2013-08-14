@@ -53,7 +53,7 @@ def cont_register(request):
 	        router = Router.objects.create(user=user)
 	    else: 
 	        router = Router.objects.get(user=user)
-	    vars = ('isp', 'service_type', 'service_plan', 'drate', 'urate', 'city', 'state', 'country')
+	    vars = ('isp', 'service_type', 'service_plan', 'drate', 'urate', 'city', 'state', 'country', 'node_id')
 	    for i in vars: 
 	        router.__setattr__(i, request.REQUEST.get(i))
 	    router.save()
@@ -120,3 +120,6 @@ def check(request):
         return authenticator.error_response(content="You didn't authenticate.")
     username = authenticator.user.email
     return HttpResponse(content="good token %s" % username)
+
+def help(request):
+    return render_to_response('registration/help.html', {}, RequestContext(request))

@@ -15,3 +15,4 @@ class Router(models.Model):
 	service_plan = models.CharField(max_length=100)
 	drate = models.CharField(max_length=100, blank=True)
 	urate = models.CharField(max_length=100, blank=True)
+	node_id = models.CharField(max_length=100)
