@@ -12,7 +12,7 @@
             var theurl = 
         $.ajax({
                 type: "GET",
-                url: "http://" + hosts[idx] + "/cgi-bin/register-nodeid",
+                url: "http://" + hosts[idx] + "/cgi-bin/register-macaddress",
                 timeout: 1000,
                 success: function(data, textStatus, jqXHR) {
                     var node_id = $.trim(data);
