@@ -4,6 +4,19 @@
 
 {% block content %}
 
+        <script type="text/javascript">
+            var hosts = ['myrouter.projectbismark.net',
+                         'myrouter.local',
+                         '192.168.142.1'];
+            for (var idx in hosts) {
+                $.ajax({
+                    type: "GET",
+                    url: "http://" + hosts[idx] + "/cgi-bin/turn-off-nodogsplash",
+                    timeout: 1000,
+                });
+            }
+        </script>
+
         <h2>Account Registration</h2>
 	<p>Fill out the following information to create your account. </p>
 
